@@ -217,6 +217,6 @@ func (r *ServiceAccount) IAMPolicyVersion() int {
 func (r *ServiceAccount) GetPolicy(basePath string) (string, string, *bytes.Buffer, error) {
 	u := r.getPolicyURL(basePath)
 	body := &bytes.Buffer{}
-	body.WriteString(fmt.Sprintf(`{"options":{"requestedPolicyVersion": %d}}`, r.IAMPolicyVersion()))
+	fmt.Fprintf(body, `{"options":{"requestedPolicyVersion": %d}}`, r.IAMPolicyVersion())
 	return u, "POST", body, nil
 }
