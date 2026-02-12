@@ -162,7 +162,7 @@ func AddQueryParams(rawurl string, params map[string]string) (string, error) {
 }
 
 // ParseResponse reads a JSON response into a Go struct
-func ParseResponse(resp *http.Response, ptr interface{}) error {
+func ParseResponse(resp *http.Response, ptr any) error {
 	defer resp.Body.Close()
 	return json.NewDecoder(resp.Body).Decode(ptr)
 }
@@ -189,7 +189,7 @@ func IsRetryableRequestError(c *Config, err error, retryNotFound bool, start tim
 
 // Nprintf takes in a format string (with format {{key}} instead of %s) and a params map.
 // Returns filled string.
-func Nprintf(format string, params map[string]interface{}) string {
+func Nprintf(format string, params map[string]any) string {
 	pq := strings.Split(format, "?")
 	path := pq[0]
 	query := ""
@@ -213,7 +213,7 @@ func Nprintf(format string, params map[string]interface{}) string {
 }
 
 // URL takes in a partial URL, default base path, optional user-specified base-path and a params map.
-func URL(urlpath, basePath, userPath string, params map[string]interface{}) string {
+func URL(urlpath, basePath, userPath string, params map[string]any) string {
 	if userPath != "" {
 		if strings.HasSuffix(userPath, "/") {
 			userPath = userPath[:len(userPath)-1]
@@ -228,14 +228,14 @@ func URL(urlpath, basePath, userPath string, params map[string]interface{}) stri
 
 // ResponseBodyAsJSON reads the response body from a *RetryDetails and returns
 // it as unstructured JSON in a map[string]interface{}.
-func ResponseBodyAsJSON(retry *RetryDetails) (map[string]interface{}, error) {
+func ResponseBodyAsJSON(retry *RetryDetails) (map[string]any, error) {
 	defer retry.Response.Body.Close()
 	b, err := io.ReadAll(retry.Response.Body)
 	if err != nil {
 		return nil, err
 	}
 
-	var m map[string]interface{}
+	var m map[string]any
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}

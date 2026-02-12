@@ -161,7 +161,7 @@ type Property struct {
 	Description              string                       `yaml:"description,omitempty"`
 	Immutable                bool                         `yaml:"x-kubernetes-immutable,omitempty"`
 	Conflicts                []string                     `yaml:"x-dcl-conflicts,omitempty"`
-	Default                  interface{}                  `yaml:"default,omitempty"`
+	Default                  any                          `yaml:"default,omitempty"`
 	ServerDefault            bool                         `yaml:"x-dcl-server-default,omitempty"`
 	ServerGeneratedParameter bool                         `yaml:"x-dcl-server-generated-parameter,omitempty"`
 	Sensitive                bool                         `yaml:"x-dcl-sensitive,omitempty"`
