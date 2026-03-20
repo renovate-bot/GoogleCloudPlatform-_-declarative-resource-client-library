@@ -18,6 +18,7 @@ import (
 	"fmt"
 	"reflect"
 	re "regexp"
+	slices0 "slices"
 	"strconv"
 	"strings"
 
@@ -307,12 +308,7 @@ func ValueOrEmptyDouble(s *float64) float64 {
 
 // FindStringInArray returns true if value found in array of strings
 func FindStringInArray(s string, items []string) bool {
-	for _, v := range items {
-		if v == s {
-			return true
-		}
-	}
-	return false
+	return slices0.Contains(items, s)
 }
 
 // ValueFromRegexOnField assigns val to the regex value on containerVal if val is unset

@@ -16,6 +16,7 @@ package dcl
 import (
 	"encoding/json"
 	"fmt"
+	slices0 "slices"
 	"strconv"
 	"time"
 
@@ -46,12 +47,7 @@ const (
 
 // HasLifecycleParam returns whether the given slice has the requested param.
 func HasLifecycleParam(lps []LifecycleParam, p LifecycleParam) bool {
-	for _, lp := range lps {
-		if lp == p {
-			return true
-		}
-	}
-	return false
+	return slices0.Contains(lps, p)
 }
 
 // SprintResourceCompact prints a struct into a compact single line string.
